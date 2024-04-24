@@ -16,8 +16,14 @@ version = {attr="collect.__version__"}
 
 
 [tools.setuptools.packages.find]
-where = ["collect"]
-include = ["collect", "collect/ripl"]
+namespaces = true
+where = ["src"]
+
+[tool.setuptools.package-data]
+"collect.data" = ["ripl/*/*.dat"]
+
+
+
 
 [tool.pytest.ini_options]
 markers = [ 
