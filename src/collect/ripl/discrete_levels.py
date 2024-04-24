@@ -147,7 +147,7 @@ class Level:
         Parity of the level (-1 or 1)
 
     half_life : float
-        half-live of the level in sections, if known. 0 if unknown.
+        half-live of the level in seconds, if known. 0 if unknown.
 
     num_transitions : int
         number of transitions from this level
