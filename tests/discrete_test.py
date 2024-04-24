@@ -1,5 +1,5 @@
 import collect
-from collect.ripl.discrete_levels import Transition
+from collect.ripl.discrete_levels import Transition, Level
 from pathlib import Path
 import pytest
 
@@ -41,3 +41,34 @@ def test_all_gamma_lines(ripl_path):
             if len(line) > 2 and line[:5] == " " * 5:
                 obj = Transition(100, line)
                 print(line)
+
+
+def test_reading_level():
+    line = "  5   0.386700   6.5 -1             2                   (13/2-)  0                                                                                                                                                                                                                              0.000000  2    "
+    obj = Level(line)
+    assert obj.index == 5
+    assert obj.energy == 0.3867
+    assert obj.num_transitions == 2
+    assert obj.spin == 6.5
+    assert obj.parity == -1
+    assert obj.half_life == 0.0
+
+
+@pytest.mark.fishing
+def test_all_level_lines(ripl_path):
+    """Parse all level lines in all RIPL discrete files
+
+    This is a very slow test
+
+    """
+    for fle in ripl_path.glob("*.dat"):
+        with open(fle, "r") as f:
+            lines = f.readlines()
+        for line in lines:
+            if len(line) > 2:
+                try:
+                    index = int(line[:5])
+                    obj = Level(line)
+                    print(line)
+                except ValueError:
+                    continue
