@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "collect"
+description = "python package to collect nuclear data inputs"
+readme = "readme.md"
+dynamic = ["version"]
+dependencies = [
+	"fortranformat"
+]
+
+[tool.setuptools.dynamic]
+version = {attr="collect.__version__"}
+
+
+[tools.setuptools.packages.find]
+where = ["collect"]
+include = ["collect", "collect/ripl"]
+
+[tool.pytest.ini_options]
+markers = [ 
+	"slow: marks tests as slow", 
+	"local: marks tests that run on local scripts",
+	"fishing: marks tests that run over a lot of files to find edge cases",
+	"notready: marks tests to skip while developing one aspect"
+]
+python_files = "tests/*test*.py"
+addopts = "-m 'not slow  and not notready and not fishing '"

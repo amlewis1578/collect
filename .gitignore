@@ -1,0 +1,54 @@
+# Created by .ignore support plugin (hsz.mobi)
+build/
+
+
+# ipython notebooks through moba
+*default-*.ipynb
+
+# VSCode
+.vscode/
+
+# vim temp files
+*.swp
+
+# Cython
+*.c
+*.pyc
+*.pyo
+__pycache__
+*.so
+*.o
+*.egg
+*.egg-info
+
+# Pytest
+.pytest_cache
+.coverage
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+
+# Jupyter Notebook
+#*.ipynb
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
