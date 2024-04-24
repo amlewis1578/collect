@@ -54,6 +54,16 @@ class DiscreteLevels:
 
         # grab just the lines relating to this isotope
         self.lines = lines[i + 1 : i + 1 + Nl + Ng]
+        self.levels = []
+
+        while len(self.lines) > 0:
+            lvl_line = self.lines.pop(0)
+            self.levels.append(Level(lvl_line))
+
+            if self.levels[-1].num_transitions > 0:
+                gamma_lines = self.lines[: self.levels[-1].num_transitions]
+                self.levels[-1].parse_transitions(gamma_lines)
+                self.lines = self.lines[self.levels[-1].num_transitions :]
 
 
 class Level:

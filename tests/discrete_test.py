@@ -14,7 +14,8 @@ def ripl_path():
 def test_reading_files():
     lvls = collect.ripl.DiscreteLevels(A=56, Z=26)
     assert lvls.X == "Fe"
-    assert len(lvls.lines) == 297 + 426
+    assert len(lvls.levels) == 297
+    assert len(lvls.levels[5].transitions) == 2
     assert lvls.Sn == 11.19706
 
 
@@ -86,3 +87,27 @@ def test_all_level_lines(ripl_path):
                     print(line)
                 except ValueError:
                     continue
+
+
+@pytest.mark.fishing
+def test_all_isotopes(ripl_path):
+    """Parse all isotopes in the ripl database
+
+    This is a very slow test
+
+    """
+    for fle in ripl_path.glob("*.dat"):
+        with open(fle, "r") as f:
+            lines = f.readlines()
+        for line in lines:
+            if len(line) > 2 and line[:2] != "  ":
+                try:
+                    index = int(line[:5])
+                    continue
+                except ValueError:
+                    values = line.split()
+                    print(values)
+                    obj = collect.ripl.DiscreteLevels(
+                        Z=int(values[2]), A=int(values[1])
+                    )
+                    print(line)
