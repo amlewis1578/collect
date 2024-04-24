@@ -123,6 +123,11 @@ class DiscreteLevels:
                 self.levels[-1].parse_transitions(gamma_lines)
                 self.lines = self.lines[self.levels[-1].num_transitions :]
 
+    def __repr__(self):
+        rep = f"RIPL level scheme for {self.symbol}\n\t{self.num_levels} total levels\n"
+        rep += f"\t{self.num_complete} levels in the complete level scheme"
+        return rep
+
 
 class Level:
     """Class to hold a single level in a level scheme. All energies are in MeV.
@@ -195,6 +200,7 @@ class Level:
         self.parity = p
         self.half_life = T
         self.num_transitions = Ng
+        self.transitions = []
 
     def parse_transitions(self, transition_lines):
         """Function to parse the transition lines
@@ -210,10 +216,14 @@ class Level:
 
         """
 
-        self.transitions = []
         for line in transition_lines:
             self.transitions.append(Transition(self.index, line))
 
+    def __repr__(self):
+        rep = f"Level {self.index} at {self.energy} MeV with {self.num_transitions} transitions"
+        for transition in self.transitions:
+            rep += f"\n\t{transition.final_index}: {round(100*transition.probability,3)}%"
+        return rep
 
 class Transition:
     """Class to hold a transition between two levels in a level scheme. All energies are in MeV
@@ -284,3 +294,9 @@ class Transition:
         self.gamma_prob = Pg
         self.probability = Pe
         self.alpha = ICC
+
+    def __repr__(self):
+        rep = f"Transition from level {self.intial_index} to level {self.final_index}\n\tenergy: {self.energy} MeV\n"
+        rep += f"\tinternal conversion coefficent: {self.alpha}\n"
+        rep += f"\tchance of gamma emission: {round(100*self.gamma_prob/self.probability,2)}%"
+        return rep
