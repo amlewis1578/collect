@@ -38,7 +38,7 @@ class DiscreteLevels:
     num_levels  : int
         Number of levels
 
-    num_gammas : int
+    num_transitions : int
         Total number of gammas
 
     num_complete : int
@@ -106,7 +106,7 @@ class DiscreteLevels:
 
         # get isotope information
         self.num_levels = Nl
-        self.num_gammas = Ng
+        self.num_transitions = Ng
         self.num_complete = Nc
         self.Sn = Sn
 

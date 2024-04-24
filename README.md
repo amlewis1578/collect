@@ -36,7 +36,7 @@ The `DiscreteLevels` object has some basic information about the isotope:
 - `X` - chemical symbol
 - `symbol` - isotope symbol, `AAAXX`
 - `num_levels` - number of levels
-- `num_gammas` - total number of gammas in the level scheme
+- `num_transitions` - total number of gammas in the level scheme
 - `num_complete` - number of levels in the RIPL complete level scheme
 - `Sn` - neutron separation energy in MeV
 - `levels` - list of `Level` objects
