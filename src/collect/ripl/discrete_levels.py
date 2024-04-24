@@ -5,7 +5,55 @@ from pathlib import Path
 
 
 class DiscreteLevels:
-    """Class to hold a full level scheme"""
+    """Class to hold a full level scheme
+    
+    Parameters
+    ----------
+    A : int
+        Mass number of the isotope
+
+    Z : int, optional
+        Z of the isotope
+
+    X : str, optional
+        Chemical symbol of the isotope
+
+    Attributes
+    ----------
+    A : int
+        Mass number of the isotope
+
+    Z : int
+        Z of the isotope
+
+    X : str
+        Chemical symbol of the isotope   
+
+    symbol : str
+        Symbol for the isotope, AAAXX
+
+    levels : list of Level objects
+        The levels in the isotope
+
+    num_levels  : int
+        Number of levels
+
+    num_gammas : int
+        Total number of gammas
+
+    num_complete : int
+        Number of levels in the RIPL "complete" level scheme
+
+    Sn : float
+        Neutron separation energy in MeV
+
+    Methods
+    -------
+    parse_ripl
+        Function to collect and parse the RIPL file
+    
+    
+    """
 
     def __init__(self, A, Z=None, X=None):
         self.A = int(A)
@@ -25,7 +73,17 @@ class DiscreteLevels:
         self.parse_ripl()
 
     def parse_ripl(self):
-        """method documentation"""
+        """ Function to collect and parse the RIPL file
+        
+        Parameters
+        ----------
+        None
+
+        Results
+        -------
+        None
+
+        """
 
         filename = f"z{self.Z:003}.dat"
 
