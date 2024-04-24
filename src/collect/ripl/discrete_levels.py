@@ -39,7 +39,7 @@ class DiscreteLevels:
         # set up fortran read statements
         isotope_read_statement = ff.FortranRecordReader('(a5,6i5,2f12.6)')
         level_read_statement = ff.FortranRecordReader('(i3,1x,f10.6,1x,f5.1,i3,1x,(e10.3),i3,1x,a1)') 
-        gamma_read_statement = ff.FortranRecordReader('(39x,i4,1x,f10.4,3(1x,e10.3))')
+        
 
         # these files cover all isotopes of the element, so have to 
         # loop through to find the isotope of interest
@@ -59,3 +59,81 @@ class DiscreteLevels:
         
         
                 
+
+
+
+
+
+class Transition:
+    """ Class to hold a transition between two levels in a level scheme. All energies are in MeV 
+    
+    Parameters
+    ----------
+    initial : int
+        Index of the initial level
+    
+    line : str
+        The RIPL file line for the transition
+
+    Attributes
+    ----------
+    initial_index : int
+        Index of the initial level
+
+    final_index : int
+        Index of the final level   
+    
+    energy : float
+        Energy of the transition in MeV
+
+    probability : float
+        Probability that the initial level will decay by this transition
+
+    gamma_probability : float
+        Probability that the intial level will decay by this transition, and by 
+        emission of a gamma (not internal conversion)
+
+    alpha : float
+        Internal conversion coefficient known as alpha
+    
+    Methods
+    -------
+    parse_line
+        Function to parse the RIPL file line
+
+
+    """
+    def __init__(self,initial,line):
+        self.intial_index = initial
+        self.parse_line(line)
+
+
+    def parse_line(self, line):
+        """ Function to parse the RIPL file line
+
+        Parameters
+        ----------
+        line : str
+            the line from the RIPL file
+
+        Returns
+        -------
+        None        
+        
+        """
+
+        # set up gamma fortran read statement
+        gamma_read_statement = ff.FortranRecordReader('(39x,i4,1x,f10.4,3(1x,e10.3))')
+
+        # parse the line
+        Nf, Eg, Pg, Pe, ICC = gamma_read_statement.read(line)
+
+        self.final_index = Nf
+        self.energy = Eg
+        self.gamma_prob = Pg
+        self.probability = Pe
+        self.alpha = ICC
+
+
+
+
