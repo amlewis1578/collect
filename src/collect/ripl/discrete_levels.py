@@ -241,7 +241,7 @@ class Transition:
         Probability that the initial level will decay by this transition
 
     gamma_probability : float
-        Probability that the intial level will decay by this transition, and by
+        Probability that the initial level will decay by this transition, and by
         emission of a gamma (not internal conversion)
 
     alpha : float

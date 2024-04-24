@@ -13,7 +13,7 @@ to install the package
 
 ## RIPL Discrete Levels
 
-to collect the discrete levels in the RIPL database, use the  `collect.ripl.DiscreteLevel` object, with the isotope mass number `A` and either `Z` or the chemical symbol `X`:
+to collect the discrete levels in the RIPL database, use the `collect.ripl.DiscreteLevel` object, with the isotope mass number `A` and either `Z` or the chemical symbol `X`:
 
 ```python
 import collect
@@ -57,4 +57,4 @@ The `Transition` objects have information about each transition from the level:
 - `final_index` - Index of the final level
 - `energy` - Energy of the transition in MeV
 - `probability` - Probability that the initial level will decay by this transition
-- `gamma_probability` - Probability that the intial level will decay by this transition, and by emission of a gamma (not internal conversion)
+- `gamma_probability` - Probability that the initial level will decay by this transition, and by emission of a gamma (not internal conversion)
