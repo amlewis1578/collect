@@ -84,11 +84,16 @@ class Level:
     num_transitions : int
         number of transitions from this level
 
+    transitions : list of Transition objects
+        The transitions from this level
+
     Methods
     -------
     parse_line
         Function to parse the RIPL file line
 
+    parse_transitions
+        Function to parse the transition lines
     """
 
     def __init__(self, line):
@@ -122,6 +127,24 @@ class Level:
         self.parity = p
         self.half_life = T
         self.num_transitions = Ng
+
+    def parse_transitions(self, transition_lines):
+        """Function to parse the transition lines
+
+        Parameters
+        ----------
+        transition_lines : list of str
+            the RIPL file lines
+
+        Returns
+        -------
+        None
+
+        """
+
+        self.transitions = []
+        for line in transition_lines:
+            self.transitions.append(Transition(self.index, line))
 
 
 class Transition:

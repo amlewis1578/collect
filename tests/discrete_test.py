@@ -54,6 +54,20 @@ def test_reading_level():
     assert obj.half_life == 0.0
 
 
+def test_level_transitions():
+    level_line = "  5   2.285240   2.5  1  2.430E-13  3 c             (5/2+,7/2+)  0                                                                                                                                                                                                                              0.000000      "
+    gamma_lines = [
+        "                                          3     0.9050  3.702E-02  3.703E-02  4.330E-05",
+        "                                          2     0.9144  3.702E-02  3.703E-02  1.016E-04",
+        "                                          1     2.2852  9.256E-01  9.259E-01  3.820E-04",
+    ]
+    obj = Level(level_line)
+    obj.parse_transitions(gamma_lines)
+    assert len(obj.transitions) == obj.num_transitions
+    assert obj.transitions[0].final_index == 3
+    assert obj.transitions[1].energy == 0.9144
+
+
 @pytest.mark.fishing
 def test_all_level_lines(ripl_path):
     """Parse all level lines in all RIPL discrete files
